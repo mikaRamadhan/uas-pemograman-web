@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Calculator UI Design</title>
+    <link rel="stylesheet" href="" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: sans-serif;
+      }
+
+      :root {
+        --body--bg: #ff6b6b; /* Warna merah muda */
+        --circle-bg: #ff0000; /* Warna merah pekat */
+      }
+
+      body {
+        min-height: 100vh;
+        background: radial-gradient(
+          at 10% 10%,
+          var(--body--bg) 50%,
+          #ff9999 /* Warna merah terang */
+        );
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        overflow: hidden;
+      }
+
+      .circle {
+        position: absolute;
+        width: 500px;
+        aspect-ratio: 1;
+        background: var(--circle-bg);
+        border-radius: 50%;
+        top: 50%;
+        left: 50%;
+        transform: translate(-30%, -50%);
+      }
+
+      .calculator {
+        width: 250px;
+        height: 500px;
+        border-radius: 30px;
+        background: linear-gradient(130deg, #fff, #fff3);
+        z-index: 2;
+        backdrop-filter: blur(15px);
+        box-shadow: 50px 50px 200px #800000; /* Bayangan dengan warna merah gelap */
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: end;
+        gap: 10px;
+      }
+
+      .display {
+        width: 100%;
+        height: 70px;
+        border: 0;
+        outline: none;
+        background: transparent;
+        padding: 5px;
+        text-align: right;
+        font-size: 2rem;
+        font-weight: bold;
+      }
+
+      .btn-area {
+        display: flex;
+        gap: 10px;
+      }
+
+      .buttons {
+        display: flex;
+        gap: 10px;
+        flex-direction: column;
+      }
+
+      .buttons input {
+        width: 45px;
+        aspect-ratio: 1/1;
+        border-radius: 10px;
+        border: 0;
+        outline: none;
+        background: #fff5;
+        box-shadow: inset 0 0 7px #fff, 0 0 20px #ff66662a; /* Bayangan bernuansa merah */
+        color: white;
+        font-weight: bold;
+        font-size: 1.2rem;
+        cursor: pointer;
+        transition: 0.13s;
+      }
+      .buttons input:hover {
+        background: #ffffffb4;
+        color: #ff4d4d; /* Warna merah cerah */
+      }
+
+      .buttons input:active {
+        background: #c4111100;
+      }
+
+      .buttons .clear,
+      .buttons .delete {
+        color: #ffa3a3;
+      }
+
+      .buttons .equal {
+        background: #ff8080;
+        height: 100px;
+      }
+
+      .buttons .operator {
+        color: #ff4d4d;
+        background: #ffcccc;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="circle"></div>
+    <div class="calculator">
+      <div class="display-area">
+        <input type="text" name="display" class="display" readonly value="" />
+      </div>
+      <div class="btn-area">
+        <div class="buttons">
+          <input type="button" value="AC" class="clear" />
+          <input type="button" value="7" class="input" />
+          <input type="button" value="4" class="input" />
+          <input type="button" value="1" class="input" />
+          <input type="button" value="0" class="input" />
+        </div>
+        <div class="buttons">
+          <input type="button" value="DE" class="delete" />
+          <input type="button" value="8" class="input" />
+          <input type="button" value="5" class="input" />
+          <input type="button" value="2" class="input" />
+          <input type="button" value="00" class="input" />
+        </div>
+        <div class="buttons">
+          <input type="button" value="/" class="input operator" />
+          <input type="button" value="9" class="input" />
+          <input type="button" value="6" class="input" />
+          <input type="button" value="3" class="input" />
+          <input type="button" value="." class="input" />
+        </div>
+        <div class="buttons">
+          <input type="button" value="*" class="input operator" />
+          <input type="button" value="-" class="input operator" />
+          <input type="button" value="+" class="input operator" />
+          <input type="button" value="=" class="equal" />
+        </div>
+      </div>
+    </div>
+    <script>
+      let display = document.querySelector(".display");
+      let input = document.querySelectorAll(".input");
+
+      input.forEach((inputs) => {
+        inputs.addEventListener("click", () => {
+          display.value += inputs.value;
+        });
+      });
+
+      let clear = document.querySelector(".clear");
+
+      clear.addEventListener("click", () => {
+        display.value = "";
+      });
+
+      let deletes = document.querySelector(".delete");
+      deletes.addEventListener("click", () => {
+        display.value = display.value.toString().slice(0, -1);
+      });
+
+      let equal = document.querySelector(".equal");
+      equal.addEventListener("click", () => {
+        display.value = eval(display.value);
+      });
+    </script>
+  </body>
+</html>
